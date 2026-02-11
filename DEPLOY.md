@@ -9,6 +9,7 @@
 5. Настройки проекта:
    - **Framework Preset:** Other
    - **Root Directory:** `./`
+   - **Install Command:** `pnpm install` (если используете pnpm) или оставьте пустым для npm
    - **Build Command:** (оставьте пустым)
    - **Output Directory:** `public`
 6. Нажмите "Deploy"
