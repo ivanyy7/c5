@@ -1,0 +1,18 @@
+# Игнорируем файлы, которые не нужны для деплоя
+node_modules/
+.git/
+.vscode/
+test-results/
+playwright-report/
+playwright/.cache/
+coverage/
+.nyc_output/
+*.log
+*.tsbuildinfo
+tests/
+e2e/
+src/
+tsconfig.json
+playwright.config.ts
+vitest.config.ts
+package-lock.json
