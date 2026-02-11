@@ -396,6 +396,55 @@ test.describe('Калькулятор - E2E тесты', () => {
     });
   });
 
+  test.describe('Переключение темы', () => {
+    test('должен переключать тему с светлой на темную', async ({ page }) => {
+      const calculator = page.locator('.calculator');
+      const themeToggle = page.locator('#themeToggle');
+      
+      // Проверяем начальную тему (светлая)
+      await expect(calculator).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      
+      // Переключаем на темную тему
+      await themeToggle.click();
+      
+      // Проверяем, что тема изменилась
+      await expect(calculator).toHaveCSS('background-color', 'rgb(45, 45, 68)');
+      await expect(themeToggle).toHaveText('☀️');
+    });
+
+    test('должен сохранять выбранную тему после перезагрузки', async ({ page }) => {
+      const themeToggle = page.locator('#themeToggle');
+      
+      // Переключаем на темную тему
+      await themeToggle.click();
+      await expect(themeToggle).toHaveText('☀️');
+      
+      // Перезагружаем страницу
+      await page.reload();
+      
+      // Проверяем, что тема сохранилась
+      await expect(themeToggle).toHaveText('☀️');
+      const calculator = page.locator('.calculator');
+      await expect(calculator).toHaveCSS('background-color', 'rgb(45, 45, 68)');
+    });
+
+    test('должен переключать тему обратно на светлую', async ({ page }) => {
+      const calculator = page.locator('.calculator');
+      const themeToggle = page.locator('#themeToggle');
+      
+      // Переключаем на темную тему
+      await themeToggle.click();
+      await expect(themeToggle).toHaveText('☀️');
+      
+      // Переключаем обратно на светлую
+      await themeToggle.click();
+      
+      // Проверяем, что тема вернулась к светлой
+      await expect(calculator).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      await expect(themeToggle).toHaveText('🌙');
+    });
+  });
+
   test.describe('Ввод с клавиатуры', () => {
     test('должен вводить числа с клавиатуры', async ({ page }) => {
       const display = page.locator('#display');
